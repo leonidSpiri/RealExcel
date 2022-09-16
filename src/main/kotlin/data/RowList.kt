@@ -60,4 +60,6 @@ class RowList {
         }
         println("--------------------")
     }
+
+    fun getSize() = last?.y ?: 0
 }
