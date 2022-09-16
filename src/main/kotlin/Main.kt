@@ -1,4 +1,5 @@
 import androidx.compose.ui.window.application
+import data.Cell
 import data.ColumnList
 import data.RowList
 
@@ -36,8 +37,21 @@ fun main() = application {
         }
         rowList.insertLast(column)
     }
-    rowList.displayForward()
-    rowList.getColumnList(3)?.getCell("A")?.value = "new value"
-    rowList.getColumnList(5)?.getCell("G")?.value = ""
+    var tempList = mutableListOf<Cell>()
+    rowList.getColumnList(3)?.getCell("A")?.let { tempList.add(it) }
+    rowList.getColumnList(3)?.getCell("B")?.let { tempList.add(it) }
+    rowList.getColumnList(2)?.getCell("A")?.let { tempList.add(it) }
+    rowList.getColumnList(2)?.getCell("B")?.let { tempList.add(it) }
+
+    tempList = rowList.getColumnRangeArray(
+        yStart = 2,
+        yEnd = 3,
+        xStart = "A",
+        xEnd = "C",
+        columnHead = listOf("A", "B", "C", "D", "E", "F", "G")
+    ).toMutableList()
+    tempList.forEach {
+        it.value = "1"
+    }
     rowList.displayForward()
 }

@@ -29,6 +29,29 @@ class RowList {
         return current.columnList
     }
 
+    fun getColumnRangeArray(
+        yStart: Long,
+        xStart: String,
+        yEnd: Long,
+        xEnd: String,
+        columnHead: List<String>
+    ): Array<Cell> {
+        val tempArray = mutableListOf<Cell>()
+        for (i in yStart..yEnd) {
+            val columnList = getColumnList(i)
+            if (columnList != null) {
+                val xStartIndex = columnHead.indexOf(xStart)
+                val xEndIndex = columnHead.indexOf(xEnd)
+                for (j in xStartIndex..xEndIndex) {
+                    val cell = columnList.getCell(columnHead[j])
+                    if (cell != null)
+                        tempArray.add(cell)
+                }
+            }
+        }
+        return tempArray.toTypedArray()
+    }
+
     fun displayForward() {
         var current = first
         while (current != null) {
